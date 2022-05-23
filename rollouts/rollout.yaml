@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: rollouts-baseline
-          image: docker.io/opsmxdev/issuegen:v3.0.1
+          image: docker.io/opsmxdev/issuegen:v3.0.3
           imagePullPolicy: Always
           ports:
             - containerPort: 8088
@@ -24,9 +24,9 @@ spec:
       steps:
         - experiment:
             templates:
-              # - name: baseline
-              #   specRef: stable
-              #   replicas: 1
+              - name: baseline
+                specRef: stable
+                replicas: 1
               - name: canary
                 specRef: canary
                 replicas: 1
@@ -38,7 +38,7 @@ spec:
                   - name: experiment-hash
                     valueFrom:
                       podTemplateHashValue: Latest
-                  # - name: baseline-hash
-                  #   value: "{{templates.baseline.podTemplateHash}}"
+                  - name: baseline-hash
+                    value: "{{templates.baseline.podTemplateHash}}"
                   - name: canary-hash
                     value: "{{templates.canary.podTemplateHash}}"
